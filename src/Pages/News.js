@@ -5,9 +5,6 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import config from "../Common/Configurations/APIConfig";
 import { handleSuccess, handleError } from "../Common/Layouts/CustomAlerts";
-import Select from "react-select";
-import { MultiSelect } from "react-multi-select-component";
-
 import moment from "moment";
 
 const initialFieldValues = {
