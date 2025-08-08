@@ -1,0 +1,99 @@
+.recharge-card {
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: none;
+}
+
+.info-card {
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: none;
+  height: 100%;
+}
+
+.recharge-options {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.option-card {
+  flex: 1;
+  padding: 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid #dee2e6;
+  text-align: center;
+}
+
+.option-card.active {
+  border-color: #0d6efd;
+  background-color: rgba(13, 110, 253, 0.05);
+}
+
+.option-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.option-content input {
+  width: 120px;
+  margin-bottom: 5px;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.option-label {
+  font-weight: bold;
+  color: #495057;
+}
+
+.option-divider {
+  padding: 0 15px;
+  font-weight: bold;
+  color: #6c757d;
+}
+
+.recharge-button {
+  padding: 10px;
+  font-weight: bold;
+  font-size: 16px;
+  border-radius: 8px;
+}
+
+.calculation-result {
+  font-size: 16px;
+}
+
+.recharge-history {
+  overflow-y: auto;
+}
+
+.list-group-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.badge {
+  font-size: 12px;
+  padding: 5px 8px;
+}
+
+@media (max-width: 768px) {
+  .recharge-options {
+    flex-direction: column;
+  }
+
+  .option-divider {
+    padding: 15px 0;
+  }
+
+  .option-card {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
