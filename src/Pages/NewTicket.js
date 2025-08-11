@@ -314,59 +314,62 @@ export default function NewTicket() {
           <table className="ticket-table">
             <thead>
               <tr>
-                <th>TicketNo</th>
-                <th>Category</th>
-                <th>Query</th>
-                <th>Priority</th>
-                <th>Status</th>
-                <th>Action</th>
+                <th>Ticket Details</th>
               </tr>
             </thead>
             <tbody>
               {tickets.length > 0 &&
-                tickets.map((ticket, index) => (
+                tickets.map((ticket) => (
                   <tr key={ticket.ticketId}>
-                    <td>{ticket.ticketNo}</td>
-                    <td>{ticket.ticketCategoryName}</td>
-                    <td>{ticket.ticketQuery}</td>
                     <td>
-                      {ticket.ticketPriority === "LOW" ? (
-                        <span className="badge bg-success">LOW</span>
-                      ) : ticket.ticketPriority === "MEDIUM" ? (
-                        <span className="badge bg-warning">MEDIUM</span>
-                      ) : (
-                        <span className="badge bg-danger">HIGH</span>
-                      )}
-                    </td>
-                    <td>
-                      {ticket.ticketStatus === "OPEN" ? (
-                        <span className="badge bg-success">OPEN</span>
-                      ) : (
-                        <span className="badge bg-warning">PENDING</span>
-                      )}
-                    </td>
-                    <td>
-                      <div className="action-buttons">
-                        <Link
-                          to={"/ticketdetails/" + ticket.ticketId}
-                          className="btn-view"
-                        >
-                          <i className="ri-eye-2-line"></i>
-                        </Link>
-                        <Link
-                          onClick={() => {
-                            showEditDetails(ticket);
-                          }}
-                          className="btn-edit"
-                        >
-                          <i className="ri-edit-2-line"></i>
-                        </Link>
-                        <Link
-                          onClick={(e) => onDelete(e, ticket.ticketId)}
-                          className="btn-delete"
-                        >
-                          <i className="ri-delete-bin-line"></i>
-                        </Link>
+                      <div className="ticket-details">
+                        <div>
+                          <strong>Ticket No:</strong> {ticket.ticketNo}
+                        </div>
+                        <div>
+                          <strong>Category:</strong> {ticket.ticketCategoryName}
+                        </div>
+                        <div>
+                          <strong>Query:</strong> {ticket.ticketQuery}
+                        </div>
+                        <div>
+                          <strong>Priority:</strong>{" "}
+                          {ticket.ticketPriority === "LOW" ? (
+                            <span className="badge bg-success">LOW</span>
+                          ) : ticket.ticketPriority === "MEDIUM" ? (
+                            <span className="badge bg-warning">MEDIUM</span>
+                          ) : (
+                            <span className="badge bg-danger">HIGH</span>
+                          )}
+                        </div>
+                        <div>
+                          <strong>Status:</strong>{" "}
+                          {ticket.ticketStatus === "OPEN" ? (
+                            <span className="badge bg-success">OPEN</span>
+                          ) : (
+                            <span className="badge bg-warning">PENDING</span>
+                          )}
+                        </div>
+                        <div className="ticket-actions">
+                          <Link
+                            to={"/ticketdetails/" + ticket.ticketId}
+                            className="btn-view"
+                          >
+                            <i className="ri-eye-2-line"></i> View
+                          </Link>
+                          <Link
+                            onClick={() => showEditDetails(ticket)}
+                            className="btn-edit"
+                          >
+                            <i className="ri-edit-2-line"></i> Edit
+                          </Link>
+                          <Link
+                            onClick={(e) => onDelete(e, ticket.ticketId)}
+                            className="btn-delete"
+                          >
+                            <i className="ri-delete-bin-line"></i> Delete
+                          </Link>
+                        </div>
                       </div>
                     </td>
                   </tr>
@@ -375,12 +378,14 @@ export default function NewTicket() {
           </table>
         </div>
 
-        <div className="pagination-container">
-          <div className="pagination-info">
-            Showing <span>{tickets.length}</span> of <span>{totalRecords}</span>{" "}
-            Results
+        <div className="align-items-center mt-4 pt-2 justify-content-between d-flex">
+          <div className="flex-shrink-0 d-none d-sm-block">
+            <div className="text-muted">
+              Showing <span className="fw-semibold">{tickets.length}</span> of{" "}
+              <span className="fw-semibold">{totalRecords}</span> Results
+            </div>
           </div>
-          <ul className="pagination">
+          <ul className="pagination pagination-separated pagination-sm mb-0">
             <li
               className={
                 "page-item" + (data.previousPage === null ? " disabled" : "")

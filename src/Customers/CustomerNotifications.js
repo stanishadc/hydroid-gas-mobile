@@ -105,17 +105,20 @@ export default function CustomerNotifications() {
           </table>
         </div>
         <div className="align-items-center mt-4 pt-2 justify-content-between d-flex">
-          <div className="flex-shrink-0">
+          {/* Hide on small screens */}
+          <div className="flex-shrink-0 d-none d-sm-block">
             <div className="text-muted">
               Showing{" "}
               <span className="fw-semibold">{notifications.length}</span> of{" "}
               <span className="fw-semibold">{totalRecords}</span> Results
             </div>
           </div>
+
+          {/* Always show pagination */}
           <ul className="pagination pagination-separated pagination-sm mb-0">
             <li
               className={
-                "page-item" + data.previousPage === null ? "disabled" : ""
+                "page-item" + (data.previousPage === null ? " disabled" : "")
               }
               onClick={() => GetFirstPageData()}
             >
@@ -123,7 +126,9 @@ export default function CustomerNotifications() {
             </li>
             {renderPageNumbers}
             <li
-              className={"page-item" + data.nextPage === null ? "disabled" : ""}
+              className={
+                "page-item" + (data.nextPage === null ? " disabled" : "")
+              }
               onClick={() => GetLastPageData()}
             >
               <Link className="page-link">Next</Link>
