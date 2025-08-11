@@ -1,10 +1,10 @@
-import Header from "../Common/Layouts/Header";
-import SideBar from "../Common/Layouts/SideBar";
-import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import config from "../Common/Configurations/APIConfig";
 import { handleSuccess, handleError } from "../Common/Layouts/CustomAlerts";
+import MobileFooter from "../Common/Layouts/MobileFooter";
+import "./Profile.css";
+
 const initialFieldValues = {
   userId: "00000000-0000-0000-0000-000000000000",
   name: "",
@@ -13,9 +13,11 @@ const initialFieldValues = {
   city: "",
   country: "INDIA",
 };
+
 export default function UserProfile() {
   const [values, setValues] = useState(initialFieldValues);
   const [errors, setErrors] = useState({});
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setValues({
@@ -23,12 +25,14 @@ export default function UserProfile() {
       [name]: value,
     });
   };
+
   const headerconfig = {
     headers: {
       Authorization: "Bearer " + localStorage.getItem("userToken"),
       "Content-Type": "application/json",
     },
   };
+
   const validate = () => {
     let temp = {};
     temp.name = values.name === "" ? false : true;
@@ -37,6 +41,7 @@ export default function UserProfile() {
     setErrors(temp);
     return Object.values(temp).every((x) => x === true);
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validate()) {
@@ -51,6 +56,7 @@ export default function UserProfile() {
       addOrEdit(formData);
     }
   };
+
   const applicationAPI = () => {
     return {
       update: (newrecord) =>
@@ -61,6 +67,7 @@ export default function UserProfile() {
         ),
     };
   };
+
   const addOrEdit = (formData) => {
     applicationAPI()
       .update(formData)
@@ -73,6 +80,7 @@ export default function UserProfile() {
         }
       });
   };
+
   const GetUserData = () => {
     axios
       .get(
@@ -89,112 +97,81 @@ export default function UserProfile() {
         });
       });
   };
+
   const applyErrorClass = (field) =>
     field in errors && errors[field] === false ? " form-control-danger" : "";
+
   useEffect(() => {
     GetUserData();
   }, []);
+
   return (
-    <div id="layout-wrapper">
-      <Header></Header>
-      <SideBar></SideBar>
-      <div className="main-content">
-        <div className="page-content">
-          <div className="container-fluid">
-            <div className="row">
-              <div className="col-12">
-                <div className="page-title-box d-sm-flex align-items-center justify-content-between">
-                  <h4 className="mb-sm-0">User Profile</h4>
-                  <div className="page-title-right">
-                    <ol className="breadcrumb m-0">
-                      <li className="breadcrumb-item">
-                        <Link>Home</Link>
-                      </li>
-                      <li className="breadcrumb-item active">User Profile</li>
-                    </ol>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="alert alert-success">
-              <form onSubmit={handleSubmit} autoComplete="off" noValidate>
-                <div className="row align-items-end">
-                  <div className="col-lg-2">
-                    <div className="mb-4">
-                      <label htmlFor="name" className="form-label">
-                        Name
-                      </label>
-                      <input
-                        type="text"
-                        value={values.name}
-                        name="name"
-                        onChange={handleInputChange}
-                        className={"form-control" + applyErrorClass("name")}
-                        placeholder="Name"
-                      />
-                    </div>
-                  </div>
-                  <div className="col-lg-2">
-                    <div className="mb-4">
-                      <label htmlFor="email" className="form-label">
-                        Email
-                      </label>
-                      <input
-                        type="text"
-                        value={values.email}
-                        name="email"
-                        onChange={handleInputChange}
-                        className={"form-control" + applyErrorClass("email")}
-                        placeholder="Email"
-                      />
-                    </div>
-                  </div>
-                  <div className="col-lg-2">
-                    <div className="mb-4">
-                      <label htmlFor="phoneNo" className="form-label">
-                        Phone No
-                      </label>
-                      <input
-                        type="text"
-                        value={values.phoneNumber}
-                        name="phoneNumber"
-                        onChange={handleInputChange}
-                        className={
-                          "form-control" + applyErrorClass("phoneNumber")
-                        }
-                        placeholder="Phone No"
-                        maxLength={12}
-                      />
-                    </div>
-                  </div>
-                  <div className="col-lg-2">
-                    <div className="mb-4">
-                      <label htmlFor="city" className="form-label">
-                        City
-                      </label>
-                      <input
-                        type="text"
-                        value={values.city}
-                        name="city"
-                        onChange={handleInputChange}
-                        className={"form-control" + applyErrorClass("city")}
-                        placeholder="City"
-                      />
-                    </div>
-                  </div>
-                  <div className="col-lg-2">
-                    <div className="mb-4">
-                      <button type="submit" className="btn btn-primary w-100">
-                        Update Profile
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
+    <div className="mobile-profile-container">
+      {/* Mobile Header */}
+      <div className="mobile-profile-header">
+        <h4>User Profile</h4>
       </div>
+
+      {/* Mobile Form */}
+      <div className="mobile-profile-content">
+        <form onSubmit={handleSubmit} autoComplete="off" noValidate>
+          <div className="form-group">
+            <label>Name</label>
+            <input
+              type="text"
+              value={values.name}
+              name="name"
+              onChange={handleInputChange}
+              className={"form-control" + applyErrorClass("name")}
+              placeholder="Name"
+            />
+          </div>
+
+          <div className="form-group">
+            <label>Email</label>
+            <input
+              type="text"
+              value={values.email}
+              name="email"
+              onChange={handleInputChange}
+              className={"form-control" + applyErrorClass("email")}
+              placeholder="Email"
+            />
+          </div>
+
+          <div className="form-group">
+            <label>Phone No</label>
+            <input
+              type="text"
+              value={values.phoneNumber}
+              name="phoneNumber"
+              onChange={handleInputChange}
+              className={"form-control" + applyErrorClass("phoneNumber")}
+              placeholder="Phone No"
+              maxLength={12}
+            />
+          </div>
+
+          <div className="form-group">
+            <label>City</label>
+            <input
+              type="text"
+              value={values.city}
+              name="city"
+              onChange={handleInputChange}
+              className={"form-control" + applyErrorClass("city")}
+              placeholder="City"
+            />
+          </div>
+
+          <button type="submit" className="btn btn-primary w-100">
+            Update Profile
+          </button>
+        </form>
+      </div>
+
+      {/* Mobile Footer */}
+      <MobileFooter />
     </div>
   );
 }

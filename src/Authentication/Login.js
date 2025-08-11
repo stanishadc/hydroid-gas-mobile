@@ -1,24 +1,29 @@
-import config from "../Common/Configurations/APIConfig";
-import axios from "axios";
 import React, { useState, useEffect } from "react";
-import { useNavigate, useLocation, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import config from "../Common/Configurations/APIConfig";
 import auth from "../Common/Configurations/Auth";
 import { handleSuccess, handleError } from "../Common/Layouts/CustomAlerts";
+import "./Login.css"; // Import the CSS file
+
 const initialLoginValues = {
   username: "",
   password: "",
 };
+
 export default function Login() {
   const navigate = useNavigate();
   const [values, setValues] = useState(initialLoginValues);
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+
   const applicationAPI = (url = config.APIACTIVATEURL + config.LOGINUSER) => {
     return {
       userlogin: (newRecord) => axios.post(url, newRecord),
     };
   };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setValues({
@@ -26,6 +31,7 @@ export default function Login() {
       [name]: value,
     });
   };
+
   const validate = () => {
     let temp = {};
     temp.username = values.username == "" ? false : true;
@@ -33,6 +39,7 @@ export default function Login() {
     setErrors(temp);
     return Object.values(temp).every((x) => x == true);
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
@@ -49,6 +56,7 @@ export default function Login() {
       handleError("Please check the mandatory fields");
     }
   };
+
   const checkUser = (loginData) => {
     applicationAPI()
       .userlogin(loginData)
@@ -83,10 +91,12 @@ export default function Login() {
         handleError("Please check the credentials");
       });
   };
+
   function clearForm() {
     values.username = "";
     values.password = "";
   }
+
   useEffect(() => {
     if (localStorage.getItem("userToken") !== "") {
       if (CheckExpirationTime()) {
@@ -114,136 +124,82 @@ export default function Login() {
     }
     return false;
   }
+
   const applyErrorClass = (field) =>
     field in errors && errors[field] == false ? " form-control-danger" : "";
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
+
   return (
-    <div className="auth-page-wrapper pt-5">
-      <div className="auth-one-bg-position">
-        <div class="bg-overlay" style={{backgroundImage:"url('/assets/images/loginHero.jpg')"}}></div>
+    <div className="mobile-auth-container">
+      <div className="mobile-auth-header">
+        <h1>HYDROID</h1>
+        <p>GAS METERING SOLUTIONS</p>
       </div>
-      <div className="auth-page-content">
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-12">
-              <div className="text-center mt-sm-5 mb-4 text-white-50">
-                <div>
-                  <h1 style={{ color: "#fff" }}> HYDROID </h1>
-                </div>
-                <p className="mt-3 fs-15 fw-medium" style={{ color: "#fff" }}>
-                  GAS METERING SOLUTIONS
-                </p>
-              </div>
-            </div>
-          </div>
-          {/* end row */}
-          <div className="row justify-content-center">
-            <div className="col-md-8 col-lg-6 col-xl-5">
-              <div className="card mt-4">
-                <div className="card-body p-4">
-                  <div className="text-center mt-2">
-                    <h5 className="text-primary">Welcome Back !</h5>
-                    <p className="text-muted">Sign in to continue.</p>
-                  </div>
-                  <div className="p-2 mt-4">
-                    <form onSubmit={handleSubmit} autoComplete="off" noValidate>
-                      <div className="mb-3">
-                        <label htmlFor="username" className="form-label">
-                          Username*
-                        </label>
-                        <input
-                          className={
-                            "form-control" + applyErrorClass("username")
-                          }
-                          name="username"
-                          type="text"
-                          value={values.username}
-                          onChange={handleInputChange}
-                          placeholder="Enter username"
-                        />
-                        {errors.username === false && (
-                          <div className="text-danger small mt-1">
-                            Please enter username
-                          </div>
-                        )}
-                      </div>
-                      <div className="mb-3">
-                        <label className="form-label" htmlFor="password">
-                          Password*
-                        </label>
-                        <div className="position-relative auth-pass-inputgroup mb-3">
-                          <input
-                            className={
-                              "form-control" + applyErrorClass("password")
-                            }
-                            name="password"
-                            type={showPassword ? "text" : "password"}
-                            value={values.password}
-                            onChange={handleInputChange}
-                            placeholder="Password"
-                          />
-                          <button
-                            className="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon"
-                            type="button"
-                            onClick={togglePasswordVisibility}
-                          >
-                            <i
-                              className={`ri-eye${
-                                showPassword ? "-line" : "-fill"
-                              } align-middle`}
-                            />
-                          </button>
-                        </div>
-                        {errors.password === false && (
-                          <div className="text-danger small mt-1">
-                            Please enter password
-                          </div>
-                        )}
-                      </div>
-                      <div className="mt-4">
-                        {loading === false ? (
-                          <button
-                            className="btn btn-success w-100"
-                            type="submit"
-                          >
-                            Sign In
-                          </button>
-                        ) : (
-                          <button
-                            className="btn btn-success w-100"
-                            type="button"
-                            disabled
-                          >
-                            Please wait...
-                          </button>
-                        )}
-                      </div>
-                    </form>
-                  </div>
-                </div>
-                {/* end card body */}
-              </div>
-            </div>
-          </div>
-          {/* end row */}
+
+      <div className="mobile-auth-card">
+        <div className="mobile-auth-title">
+          <h5>Welcome Back!</h5>
+          <p>Sign in to continue</p>
         </div>
-        {/* end container */}
+
+        <form onSubmit={handleSubmit} autoComplete="off" noValidate>
+          <div className="mobile-form-group">
+            <label htmlFor="username">Username*</label>
+            <input
+              className={"mobile-form-control" + applyErrorClass("username")}
+              name="username"
+              type="text"
+              value={values.username}
+              onChange={handleInputChange}
+              placeholder="Enter username"
+            />
+            {errors.username === false && (
+              <div className="error-message">Please enter username</div>
+            )}
+          </div>
+
+          <div className="mobile-form-group">
+            <label htmlFor="password">Password*</label>
+            <div style={{ position: "relative" }}>
+              <input
+                className={"mobile-form-control" + applyErrorClass("password")}
+                name="password"
+                type={showPassword ? "text" : "password"}
+                value={values.password}
+                onChange={handleInputChange}
+                placeholder="Password"
+                style={{ paddingRight: "40px" }}
+              />
+              <button
+                type="button"
+                className="password-toggle-btn"
+                onClick={togglePasswordVisibility}
+              >
+                <i className={`ri-eye${showPassword ? "-line" : "-fill"}`} />
+              </button>
+            </div>
+            {errors.password === false && (
+              <div className="error-message">Please enter password</div>
+            )}
+          </div>
+
+          <div className="mobile-submit-btn">
+            {loading === false ? (
+              <button type="submit">Sign In</button>
+            ) : (
+              <button type="button" disabled>
+                Please wait...
+              </button>
+            )}
+          </div>
+        </form>
       </div>
-      {/* end auth page content */}
-      {/* footer */}
-      <footer className="footer">
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-12">
-              <div className="text-center">
-                <p className="mb-0 text-muted">ino-fi solutions pvt ltd @ 2025</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </footer>
+
+      <div className="mobile-footer">
+        <p>ino-fi solutions pvt ltd @ 2025</p>
+      </div>
     </div>
   );
 }
