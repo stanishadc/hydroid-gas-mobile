@@ -33,13 +33,13 @@ export default function ConsumerDetails() {
         <div className="card-body">
           <h4 className="card-title">Consumer Details</h4>
           <ul className="list-group">
-            <li className="list-group-item">Name: {consumerDetails.name}</li>
-            <li className="list-group-item">Email: {consumerDetails.email}</li>
+            <li className="list-group-item">Name: {consumerDetails?.name}</li>
+            <li className="list-group-item">Email: {consumerDetails?.email}</li>
             <li className="list-group-item">
-              Phone: {consumerDetails.phoneNumber}
+              Phone: {consumerDetails?.phoneNumber}
             </li>
             <li className="list-group-item">
-              Address: {consumerDetails.address}
+              Address: {consumerDetails?.address}
             </li>
           </ul>
         </div>
