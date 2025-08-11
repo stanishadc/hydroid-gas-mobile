@@ -24,25 +24,26 @@ export default function ConsumerDetails() {
         }
       });
   };
+
   useEffect(() => {
     GetUserData();
   }, []);
+
   return (
-    <div className="col-md-6">
-      <div className="card h-100">
-        <div className="card-body">
-          <h4 className="card-title">Consumer Details</h4>
-          <ul className="list-group">
-            <li className="list-group-item">Name: {consumerDetails?.name}</li>
-            <li className="list-group-item">Email: {consumerDetails?.email}</li>
-            <li className="list-group-item">
-              Phone: {consumerDetails?.phoneNumber}
-            </li>
-            <li className="list-group-item">
-              Address: {consumerDetails?.address}
-            </li>
-          </ul>
-        </div>
+    <div className="mobile-distributer-card">
+      <div className="card-body">
+        <h4 className="card-title">Consumer Details</h4>
+        <ul className="distributer-list">
+          <li className="distributer-item">Name:{consumerDetails?.name}</li>
+
+          <li className="distributer-item">Email: {consumerDetails?.email}</li>
+          <li className="distributer-item">
+            Phone: {consumerDetails?.phoneNumber}
+          </li>
+          <li className="distributer-item">
+            Address: {consumerDetails?.address}
+          </li>
+        </ul>
       </div>
     </div>
   );
