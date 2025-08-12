@@ -139,27 +139,13 @@ export default function CustomerDashboard() {
             {/* Today's Consumption Card */}
             <div className="mobile-dashboard-card bg-primary">
               <div className="card-header">
-                <h5>Today's Consumption</h5>
+                <h5> Consumption</h5>
               </div>
               <div className="card-body">
                 <h2>{`${
-                  dashboardData?.lastGasUsage === null
+                  dashboardData?.consumption === null
                     ? 0
-                    : dashboardData?.lastGasUsage
-                } kgs`}</h2>
-              </div>
-            </div>
-
-            {/* Last Consumption Card */}
-            <div className="mobile-dashboard-card bg-warning">
-              <div className="card-header">
-                <h5>Last Consumption</h5>
-              </div>
-              <div className="card-body">
-                <h2>{`${
-                  dashboardData?.lastGasUsage === null
-                    ? 0
-                    : dashboardData?.lastGasUsage
+                    : dashboardData?.consumption
                 } kgs`}</h2>
               </div>
             </div>
