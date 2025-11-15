@@ -1,0 +1,133 @@
+/* Main Container */
+.mobile-dashboard-container {
+  position: relative;
+  min-height: 100vh;
+  padding-bottom: 60px;
+  background-color: white;
+}
+
+/* Header */
+.mobile-dashboard-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: white;
+  color: black;
+  padding: 15px;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.mobile-dashboard-header h4 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: black;
+}
+
+/* Content Area */
+.mobile-dashboard-content {
+  padding: 70px 15px 15px; /* Added top padding for header */
+}
+
+/* News Marquee */
+.mobile-news-marquee {
+  margin-bottom: 15px;
+}
+
+/* Cards Container */
+.mobile-cards-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+/* Individual Cards */
+.mobile-dashboard-card {
+  border-radius: 10px;
+  color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.mobile-dashboard-card .card-header {
+  padding: 10px 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mobile-dashboard-card .card-header h5 {
+  margin: 0;
+  font-size: 16px;
+  color: white;
+}
+
+.mobile-dashboard-card .card-body {
+  padding: 15px;
+}
+
+.mobile-dashboard-card .card-body h2 {
+  margin: 10px 0;
+  font-size: 24px;
+  color: white;
+}
+
+.mobile-dashboard-card .card-body p {
+  margin: 5px 0;
+  font-size: 12px;
+  opacity: 0.8;
+  color: white;
+}
+
+.mobile-dashboard-card .card-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.mobile-dashboard-card .btn {
+  padding: 5px 10px;
+  font-size: 12px;
+  border-radius: 5px;
+}
+
+/* Consumption Cards Row */
+.consumption-cards-row {
+  display: flex;
+  gap: 15px;
+}
+
+.consumption-cards-row .mobile-dashboard-card {
+  flex: 1;
+}
+
+/* Sections Container */
+.mobile-sections-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Card Background Colors */
+.bg-danger {
+  background-color: #dc3545;
+}
+
+.bg-warning {
+  background-color: #ffc107;
+}
+
+.bg-success {
+  background-color: #28a745;
+}
+
+.bg-primary {
+  background-color: #007bff;
+}
+
+/* Button Styles */
+.btn-light {
+  background-color: white;
+  color: #000 !important;
+}

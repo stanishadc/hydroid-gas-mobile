@@ -13,6 +13,7 @@ import ResetPassword from "./Authentication/ResetPassword";
 import News from "./Pages/News";
 import Recharge from "./Customers/Recharge";
 import Support from "./Customers/Support";
+import MobileProfile from "./Pages/MobileProfile";
 function App() {
   return (
     <Routes>
@@ -20,15 +21,12 @@ function App() {
       <Route path="/login" element={<Login />} />
       <Route path="/logout" element={<Logout />} />
 
-
       <Route path="/customer/dashboard" element={<CustomerDashboard />} />
 
-      
       <Route path="/profile" element={<UserProfile />} />
       <Route path="/changepassword" element={<ChangePassword />} />
       <Route path="/resetpassword" element={<ResetPassword />} />
 
-      
       <Route path="/tickets" element={<Tickets />} />
       <Route path="/notifications" element={<Notifications />} />
 
@@ -40,6 +38,7 @@ function App() {
       <Route path="/news" element={<News />} />
       <Route path="/recharge" element={<Recharge />} />
       <Route path="/support" element={<Support />} />
+      <Route path="/mobileprofile" element={<MobileProfile />} />
     </Routes>
   );
 }

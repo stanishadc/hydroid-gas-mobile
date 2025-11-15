@@ -1,0 +1,105 @@
+/* Valve Card */
+.mobile-valve-card {
+  background-color: white;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.mobile-valve-card .card-title {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.text-danger {
+  color: #dc3545;
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+/* Valve Switch */
+.valve-switch-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.valve-switch {
+  position: relative;
+  display: inline-block;
+  width: 10rem;
+  height: 3rem;
+}
+
+.valve-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 1.5rem;
+  transition: 0.4s;
+  overflow: hidden;
+}
+
+.valve-text {
+  position: absolute;
+  color: white;
+  font-weight: bold;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  width: 100%;
+  text-align: center;
+}
+
+.valve-handle {
+  position: absolute;
+  background-color: white;
+  border-radius: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+  top: 50%;
+  transform: translate(0.5rem, -50%);
+  transition: transform 0.3s ease;
+  z-index: 2;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.valve-switch input:checked + .valve-slider .valve-handle {
+  transform: translate(7rem, -50%);
+}
+
+.valve-message {
+  color: #dc3545;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+/* Refresh Button */
+.refresh-button {
+  padding: 8px 15px;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.refresh-button:disabled {
+  opacity: 0.7;
+}
+
+/* Colors */
+.bg-danger {
+  background-color: #dc3545;
+}
+
+.bg-success {
+  background-color: #28a745;
+}
+
+.bg-dark {
+  background-color: #343a40;
+}

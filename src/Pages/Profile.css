@@ -1,0 +1,28 @@
+.mobile-profile-container {
+  padding-bottom: 60px;
+  background-color: #fff;
+  min-height: 100vh;
+}
+
+.mobile-profile-header {
+  background-color: #ffffff;
+  color: #2c7be5;
+  padding: 15px;
+  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.mobile-profile-content {
+  padding: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-control-danger {
+  border-color: red;
+}

@@ -1,0 +1,30 @@
+/* Distributer Card */
+.mobile-distributer-card {
+  background-color: white;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.mobile-distributer-card .card-title {
+  font-size: 16px;
+  margin-bottom: 15px;
+}
+
+.distributer-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.distributer-item {
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+}
+
+.distributer-item.disclaimer {
+  color: #dc3545;
+  border-bottom: none;
+  margin-top: 10px;
+}

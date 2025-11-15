@@ -1,16 +1,14 @@
-import Footer from "../Common/Layouts/Footer";
-import Header from "../Common/Layouts/Header";
-import SideBar from "../Common/Layouts/SideBar";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import config from "../Common/Configurations/APIConfig";
 import { Link } from "react-router-dom";
-import "../Customers/RechargeScreen.css";
 import { toast } from "react-toastify";
 import NewsMarquee from "../Customers/NewsMarquee";
 import moment from "moment";
 import CustomerRecharge from "./CustomerRecharge";
 import { handleSuccess } from "../Common/Layouts/CustomAlerts";
+import MobileFooter from "../Common/Layouts/MobileFooter";
+import "./MobileRecharge.css";
 
 const Recharge = () => {
   const [quantity, setQuantity] = useState("1000");
@@ -21,6 +19,7 @@ const Recharge = () => {
   const [gasPriceData, setGasPriceData] = useState({});
   const [deviceData, setDeviceData] = useState({});
   const [refreshKey, setRefreshKey] = useState(0);
+
   const headerconfig = {
     headers: {
       "Content-Type": "application/json",
@@ -33,10 +32,11 @@ const Recharge = () => {
     setQuantity(gasPriceData.quantity);
     setAmount(gasPriceData.pricePerKg);
   };
+
   const handlePrice = (e) => {
     const price = parseFloat(e.target.value);
     if (isNaN(price) || price < 1) {
-      alert('Enter valid price');
+      alert("Enter valid price");
       setQuantity(gasPriceData.quantity);
       setAmount(gasPriceData.pricePerKg);
       setDisplayQuantity(gasPriceData.quantity);
@@ -50,10 +50,11 @@ const Recharge = () => {
       setDisplayQuantity(totalKg);
     }
   };
+
   const handleQuantity = (e) => {
     const quantity = parseInt(e.target.value);
     if (isNaN(quantity) || quantity < 1) {
-      alert('Enter valid quantity');
+      alert("Enter valid quantity");
       setQuantity(gasPriceData.quantity);
       setAmount(gasPriceData.pricePerKg);
       setDisplayQuantity(gasPriceData.quantity);
@@ -67,6 +68,7 @@ const Recharge = () => {
       setDisplayQuantity(quantity);
     }
   };
+
   const GetGasPrice = () => {
     axios
       .get(config.APIACTIVATEURL + config.GETGASPRICEPERKG, headerconfig)
@@ -78,22 +80,30 @@ const Recharge = () => {
           const q = response.data.data.quantity;
           setQuantity(q.toFixed(6));
         }
-      })
+      });
   };
+
   const GetUserDevice = () => {
     axios
-      .get(config.APIACTIVATEURL + config.GETDEVICEBYUSER + "?UserId=" + localStorage.getItem("userId"), headerconfig)
+      .get(
+        config.APIACTIVATEURL +
+          config.GETDEVICEBYUSER +
+          "?UserId=" +
+          localStorage.getItem("userId"),
+        headerconfig
+      )
       .then((response) => {
         if (response.data.statusCode === 200) {
           setDeviceData(response.data.data);
-          console.log(response.data.data);
         }
-      })
+      });
   };
+
   useEffect(() => {
     GetGasPrice();
     GetUserDevice();
   }, []);
+
   function loadScript(src) {
     return new Promise((resolve) => {
       const script = document.createElement("script");
@@ -103,6 +113,7 @@ const Recharge = () => {
       document.body.appendChild(script);
     });
   }
+
   const handleRecharge = async () => {
     setLoading(true);
     try {
@@ -113,6 +124,7 @@ const Recharge = () => {
       setLoading(false);
     }
   };
+
   const processPayment = async (amount, quantity) => {
     setLoading(true);
     const res = await loadScript(
@@ -127,7 +139,8 @@ const Recharge = () => {
 
     try {
       const paymentResponse = await axios.post(
-        `${config.APIACTIVATEURL}${config.PAYMENTORDERREQUEST
+        `${config.APIACTIVATEURL}${
+          config.PAYMENTORDERREQUEST
         }?Amount=${Math.round(amount)}&PayRequest=RAZORPAY`,
         headerconfig
       );
@@ -152,7 +165,7 @@ const Recharge = () => {
               paymentStatus: "Success",
               paymentGatewayNo: response.razorpay_payment_id,
               rechargeStatus: "Processing",
-              endDeviceId: deviceData.endDeviceId
+              endDeviceId: deviceData.endDeviceId,
             };
             const rechargeResponse = await axios.post(
               `${config.APIACTIVATEURL}${config.CREATERECHARGE}`,
@@ -160,7 +173,10 @@ const Recharge = () => {
               headerconfig
             );
 
-            if (rechargeResponse.data && rechargeResponse.data.statusCode === 200) {
+            if (
+              rechargeResponse.data &&
+              rechargeResponse.data.statusCode === 200
+            ) {
               setRefreshKey((prevKey) => prevKey + 1);
               handleSuccess("Recharge successfully initiated!");
               resetFormFields();
@@ -208,82 +224,82 @@ const Recharge = () => {
       setLoading(false);
     }
   };
-  return (
-    <div id="layout-wrapper">
-      <Header />
-      <SideBar />
 
-      <div className="main-content">
-        <div className="page-content">
-          <div className="container-fluid">
-            <div className="row">
-              <div className="col-12">
-                <div className="page-title-box d-sm-flex align-items-center justify-content-between">
-                  <h4 className="mb-sm-0">Gas Recharge</h4>
-                  <div className="page-title-right">
-                    <ol className="breadcrumb m-0">
-                      <li className="breadcrumb-item">
-                        <Link>Home</Link>
-                      </li>
-                      <li className="breadcrumb-item active">Gas Recharge</li>
-                    </ol>
-                  </div>
+  return (
+    <div className="mobile-recharge-container">
+      {/* Mobile Header */}
+      <div className="mobile-recharge-header">
+        <h4>Gas Recharge</h4>
+      </div>
+
+      {/* Content Area */}
+      <div className="mobile-recharge-content">
+        {/* News Marquee */}
+        <div className="mobile-news-marquee">
+          <NewsMarquee />
+        </div>
+
+        {/* Recharge Card */}
+        <div className="mobile-recharge-card">
+          <h5 className="card-title">Recharge Options</h5>
+          <div className="price-alert">
+            Today's Price |<strong> {gasPriceData.price} per Kg</strong>
+            <br />
+            <small>
+              {moment(gasPriceData.createdDate).format("DD MMM YYYY hh:mm a")}
+            </small>
+          </div>
+
+          {/* Recharge Options - Now side by side */}
+          <div className="recharge-options">
+            <div className="option-row">
+              <div className="option-card">
+                <div className="option-content">
+                  <span className="option-label">Kg</span>
+                  <input
+                    type="number"
+                    onChange={handleQuantity}
+                    className="form-control"
+                    value={displayQuantity}
+                  />
                 </div>
               </div>
-            </div>
-            <div className="row">
-              <div className="col-lg-12">
-                <div className="card">
-                  <div className="card-body">
-                    <div className="row mb-3">
-                      <div className="col-12">
-                        <NewsMarquee />
-                      </div>
-                    </div>
-                    <div className="row mt-4">
-                      <div className="col-md-6">
-                        <div className="card recharge-card">
-                          <div className="card-body">
-                            <h5 className="card-title">Recharge Options</h5>
-                            <div className="alert alert-dark">
-                              Today's Price |<strong> {gasPriceData.price} per Kg</strong>
-                              <br />
-                              <small className="text-muted">{moment(gasPriceData.createdDate).format("DD MMM YYYY hh:mm a")}</small>
-                            </div>
-                            <div className="recharge-options">
-                              <div className="option-card">
-                                <div className="option-content">
-                                  <span className="option-label">Kg</span>
-                                  <input type="number" onChange={handleQuantity} className="form-control text-center" value={displayQuantity} />
-                                </div>
-                              </div>
-                              <div className="option-divider">OR</div>
-                              <div className={`option-card`}>
-                                <div className="option-content">
-                                  <span className="option-label">Rs</span>
-                                  <input type="number" onChange={handlePrice} className="form-control text-center" value={amount} />
-                                </div>
-                              </div>
-                            </div>
-                            {loading === false ?
-                              <button className="btn btn-primary w-100 mt-3 recharge-button" onClick={handleRecharge}> Recharge</button> :
-                              <button className="btn btn-primary w-100 mt-3 recharge-button" disabled> Processing...</button>}
-                          </div>
-                        </div>
-                      </div>
-                      <div className="col-md-12">
-                        <div className="card info-card">
-                          <CustomerRecharge key={refreshKey}></CustomerRecharge>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+
+              <div className="option-divider">OR</div>
+
+              <div className="option-card">
+                <div className="option-content">
+                  <span className="option-label">Rs</span>
+                  <input
+                    type="number"
+                    onChange={handlePrice}
+                    className="form-control"
+                    value={amount}
+                  />
                 </div>
               </div>
             </div>
           </div>
+
+          {loading === false ? (
+            <button className="recharge-button" onClick={handleRecharge}>
+              Recharge
+            </button>
+          ) : (
+            <button className="recharge-button" disabled>
+              Processing...
+            </button>
+          )}
+        </div>
+
+        {/* Recharge History */}
+        <div className="mobile-recharge-history">
+          <CustomerRecharge key={refreshKey} />
         </div>
       </div>
+
+      {/* Mobile Footer */}
+      <MobileFooter />
     </div>
   );
 };
